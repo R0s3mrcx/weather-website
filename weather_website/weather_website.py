@@ -19,7 +19,7 @@ css: dict = {
         "justify_content": "center",
         "padding_top": "60px",
         "box_sizing": "border-box",
-        "background_image": "url('/path_to_background_image.jpg')",  # Añadir imagen de fondo
+        "background_image": "url('/path_to_background_image.jpg')",
         "background_size": "cover",
         "background_position": "center",
     },
@@ -43,13 +43,9 @@ css: dict = {
         "font_size": "20px",
         "transition": "all 600ms ease",
         "margin_bottom": "10px",
-        "border_radius": "20px",  # Bordes redondeados
-        "border-width": "0px",
-        "background":"rgba(0, 0, 0, 0.5)",
-        
-        
-        
-        
+        "border_radius": "20px",
+        "border_width": "0px",
+        "background": "rgba(0, 0, 0, 0.5)",
     },
     "stack": {
         "width": "90%",
@@ -58,10 +54,9 @@ css: dict = {
         "justify_content": "center",
         "display": "flex",
         "flex_direction": "column",
-        "padding_top": "4em",  
+        "padding_top": "4em",
         "border_radius": "10px",
         "padding": "20px",
-        
     },
     "content": {
         "width": "100%",
@@ -75,9 +70,8 @@ css: dict = {
         "height": "auto",
         "padding": "0",
         "flex_direction": "column",
-        "align_items": "center", 
-        "color": "white",  # Texto en blanco
-        
+        "align_items": "center",
+        "color": "white",
     },
     "stat_container": {
         "display": "flex",
@@ -90,7 +84,6 @@ css: dict = {
     "stat_heading": {
         "font_size": "20px",
         "margin": "0",
-        
     },
     "stat_text": {
         "font_size": "12px",
@@ -103,7 +96,6 @@ css: dict = {
             "content": {
                 "flex_direction": "column",
                 "height": "auto",
-                
             },
             "input": {
                 "width": "100%",
@@ -168,8 +160,8 @@ class State(rx.State):
 
     async def give_content_bg(self) -> None:
         await asyncio.sleep(0.75)
-        if self.content_bg != "#rgba(0, 0, 0, 0.5)":
-            self.content_bg = "#rgba(0, 0, 0, 0.5)"
+        if self.content_bg != "rgba(0, 0, 0, 0.5)":
+            self.content_bg = "rgba(0, 0, 0, 0.5)"
 
     def expand_content_height(self) -> None:
         if self.content_height != "auto":
@@ -204,10 +196,11 @@ class State(rx.State):
                         self.image_src = "/rain.png"
 
                     self.user_input = ""
-                    
+
 
 def get_weather_request(city: str) -> str:
     return f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={API_KEY}"
+
 
 def Header() -> rx.Component:
     return rx.hstack(
@@ -224,6 +217,7 @@ def Header() -> rx.Component:
         style=css.get("header")
     )
 
+
 def index() -> rx.Component:
     header: rx.Component = Header()
 
@@ -235,11 +229,9 @@ def index() -> rx.Component:
                 on_change=State.get_input_value,
                 on_key_down=State.route_after_key_press,
                 background="rgba(0, 0, 0, 0.5)",
-                
                 style=css.get("input"),
                 value=State.user_input,
                 variant="soft",
-               
             ),
             style=css.get("stack"),
         ),
@@ -280,13 +272,13 @@ def index() -> rx.Component:
                     ),
                     style=css.get("right_container"),
                 ),
-                
                 style=css.get("content"),
             ),
             style={**css.get("content"), "height": State.content_height, "background": State.content_bg},
         ),
         style=css.get("main"),
     )
+
 
 app = rx.App()
 app.add_page(index)
